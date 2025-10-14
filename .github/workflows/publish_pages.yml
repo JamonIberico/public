@@ -5,9 +5,10 @@ on:
     branches: ["gh-pages"]
 
 # Queue jobs instead of canceling; ensures serialized deployments
+# UPDATE: Nope, going back to cancelling.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   pages: write
@@ -39,3 +40,4 @@ jobs:
       - name: Deploy
         id: deploy
         uses: actions/deploy-pages@v4
+
