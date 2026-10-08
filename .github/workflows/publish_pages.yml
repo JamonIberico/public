@@ -6,9 +6,11 @@ on:
 
 # Queue jobs instead of canceling; ensures serialized deployments
 # UPDATE: Nope, going back to cancelling.
+# UPDATE: I'm not sure if cancelling ultimately results in pages not getting updated, e.g. https://github.com/JamonIberico/public/actions/runs/37679870515,
+# so going back to serialized.
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   pages: write
