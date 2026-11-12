@@ -3,6 +3,7 @@ name: Fast Deploy (Plain HTML)
 on:
   push:
     branches: ["gh-pages"]
+  workflow_dispatch:
 
 # Queue jobs instead of canceling; ensures serialized deployments
 # UPDATE: Nope, going back to cancelling.
