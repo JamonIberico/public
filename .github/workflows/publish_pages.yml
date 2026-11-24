@@ -34,9 +34,11 @@ jobs:
           fetch-depth: 1
           submodules: false
 
-      # Skip build — directly upload files
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload static files
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: .  # or specify subfolder (e.g., ./public or ./dist)
 
