@@ -17,6 +17,7 @@ permissions:
   pages: write
   id-token: write
   contents: read
+  actions: read
 
 jobs:
   deploy:
@@ -41,6 +42,24 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: .  # or specify subfolder (e.g., ./public or ./dist)
+
+      - name: Check artifact visibility
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Waiting for artifact registration..."
+          sleep 10
+
+          gh api \
+            repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts \
+            --jq '{
+              total_count: .total_count,
+              artifacts: [.artifacts[] | {
+                name: .name,
+                id: .id,
+                expired: .expired
+              }]
+            }'
 
       # Deploy to GitHub Pages
       - name: Deploy
